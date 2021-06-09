@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from "axios"
-import { GoogleLogin } from 'react-google-login';
+import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import {useHistory} from 'react-router'
 
 
@@ -42,12 +42,13 @@ const Google = () => {
     return ( 
         <div>
             <GoogleLogin
-    clientId="3628049175-30fr60td466e2k0fjg0pmgu7a.apps.googleusercontent.com"
+    clientId="3628049175-305lfr60td466e2kjd0fjg0pm9ergu7a.apps.googleusercontent.com"
     buttonText="Login"
     onSuccess={responseGoogle}
     onFailure={responseGoogle}
     cookiePolicy={'single_host_origin'}
   />
+
         </div>
     )
 }

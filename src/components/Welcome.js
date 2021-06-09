@@ -1,10 +1,12 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import { GoogleLogout } from 'react-google-login';
 import { useHistory } from 'react-router';
 
 const Welcome = () => {
     const history=useHistory();
-    const [User,setUser]=useState("");
+    const [logoutHandler,setLogout]=useState();
+    const [User,setUser]=useState(null);
     useEffect(() => {
         const accessToken=localStorage.getItem("accessGrant");
         if(accessToken){
@@ -15,18 +17,19 @@ const Welcome = () => {
                     },
                 });
                 console.log(userData);
-                setUser(userData)
+                const x=()=>{setUser(userData)}
+                x();
             }
             resi();
         }
         else{
-            history.redirect("/");
+            history.push("/");
         }
-    }, [history])
+    }, [history,logoutHandler])
     
     return (
         <div>
-        <div>
+        {User&& (<><div>
         USER EMAIL:-- {User.data.email}
         </div>
            
@@ -36,8 +39,14 @@ const Welcome = () => {
         </div>
         <div>
         USER LAST_NAME:-- {User.data.last_name}
-        </div>
-           
+        </div></>)
+        }
+        <GoogleLogout
+      clientId="3628049175-305lfr60td466e2kjd0fjg0pm9ergu7a.apps.googleusercontent.com"
+      buttonText="Logout"
+      onLogoutSuccess={()=>{console.log("Logged out");localStorage.removeItem('accessGrant');setLogout(false)}}
+    >
+    </GoogleLogout>
         </div>
     )
 }
